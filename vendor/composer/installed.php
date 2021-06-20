@@ -1,19 +1,19 @@
 <?php return array (
   'root' => 
   array (
-    'pretty_version' => '1.0.0+no-version-set',
+    'pretty_version' => '1.0.0',
     'version' => '1.0.0.0',
     'aliases' => 
     array (
     ),
     'reference' => NULL,
-    'name' => 'simple/simple',
+    'name' => 'getrss/getrss',
   ),
   'versions' => 
   array (
-    'simple/simple' => 
+    'getrss/getrss' => 
     array (
-      'pretty_version' => '1.0.0+no-version-set',
+      'pretty_version' => '1.0.0',
       'version' => '1.0.0.0',
       'aliases' => 
       array (
