@@ -62,6 +62,8 @@ class main_view
     }
 
     public function ShowHelp(){
+        $output = "Версия: 0.1.0, в процессе активной разработки." . PHP_EOL;
+
         $output = "СПРАВКА GETRSS" . PHP_EOL;
         $output .= "Структура команды: getrss [action] [parameters]" . PHP_EOL;
         $output .= "Действия: " . PHP_EOL;

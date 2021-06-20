@@ -118,10 +118,10 @@ class main_model
             
             $t = $params['params'];
 
-            $sql[$n] = "INSERT INTO news(id_new, title, new_link, description, new_date, author, image, url) " .
-                   "VALUES (@idn := @idn + 1,  ?, ?, ?, ?, ?, ?, @idurl) ON DUPLICATE KEY UPDATE title = ?, new_link = ?, " .
+            $sql[$n] = "INSERT INTO news(id_new, guid, title, new_link, description, new_date, author, image, url) " .
+                   "VALUES (@idn := @idn + 1, ?,  ?, ?, ?, ?, ?, ?, @idurl) ON DUPLICATE KEY UPDATE title = ?, new_link = ?, " .
                    "description = ?, new_date = ?, author = ?, image = ? ";
-            $psv[$n] = [ $t['title'], $t['link'], $t['description'], $t['pubdate'], $t['author'], $t['image_url'],
+            $psv[$n] = [ $t['guid'],  $t['title'], $t['link'], $t['description'], $t['pubdate'], $t['author'], $t['image_url'],
                          $t['title'], $t['link'], $t['description'], $t['pubdate'], $t['author'], $t['image_url'] ];
             $n++;
         }//foreach
@@ -135,7 +135,13 @@ class main_model
         $results['status'] = true;
         $results['params'] = [];
 
-        if( !isset($new->title) || !isset($new->link) || !isset($new->pubDate) ){
+        if( !isset($new->title) || !isset($new->link) || !isset($new->pubDate) || !isset($new->guid) ){
+            $results['status'] = false;
+            return $results;
+        }
+
+        $guid = trim($new->guid);
+        if(mb_strlen($guid) > 500){
             $results['status'] = false;
             return $results;
         }
@@ -189,6 +195,7 @@ class main_model
             'author' => $author,
             'description' => $description,
             'image_url' => $image_url,
+            'guid' => $guid
         ];    
 
 

@@ -1,6 +1,7 @@
 {
-    "name": "simple/simple",
-    "description": "simple project",
+    "name": "getrss/getrss",
+    "description": "application for getting rss-channels news",
+    "version": "1.0.0",
     "authors": [
 		{
 			"name": "hadji-developer",
