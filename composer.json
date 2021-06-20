@@ -1,0 +1,22 @@
+{
+    "name": "simple/simple",
+    "description": "simple project",
+    "authors": [
+		{
+			"name": "hadji-developer",
+			"role": "Developer, maintainer"
+		}
+	],
+    "type": "library",
+    "license": "GNU General Public License v3.0",
+    "minimum-stability": "dev",
+    "autoload":{
+        "psr-4":{
+            "initialization\\": "initialization/",
+            "services\\": "services/",
+            "controllers\\": "controllers/",
+            "models\\": "models/",
+            "views\\": "views/"
+        }
+    }
+}
