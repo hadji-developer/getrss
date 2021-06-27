@@ -7,11 +7,7 @@ use services\db_work_2;
 class main_model
 {
     public function __construct(){
-        $parameters = ['server' => 'localhost',
-                       'db' => 'getrss',
-                       'user' => 'getrss_user',
-                       'ent' => 'MnR8#?f9'   
-        ];
+        $parameters = include_once(__DIR__ . "/../configs/db.php");
         $this->db = new db_work_2($parameters);
         $this->db->out_exception  = false; 
     }

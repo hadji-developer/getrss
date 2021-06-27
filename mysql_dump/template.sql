@@ -19,7 +19,7 @@ use getrss;
 CREATE TABLE urls(
     id_url int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
     rss_url varchar(3000) NOT NULL,
-    alias varchar(20) NOT NULL,
+    alias varchar(100) NOT NULL,
     PRIMARY KEY (id_url)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 

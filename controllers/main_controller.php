@@ -54,8 +54,8 @@ class main_controller
         if(!$this->model->CheckAlias($args[3])['check_status']){
             exit('Такой псевдоним уже есть.' . PHP_EOL);
         }
-        if(mb_strlen($args[3]) > 10){
-            exit('Длина псевдонима не должна превышать 10 символов' . PHP_EOL);            
+        if(mb_strlen($args[3]) > 50){
+            exit('Длина псевдонима не должна превышать 50 символов' . PHP_EOL);            
         }
          
         $this->model->AddFeed($args[2], $args[3]);
