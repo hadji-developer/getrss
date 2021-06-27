@@ -64,7 +64,7 @@ class main_view
     public function ShowHelp(){
         $output = "Версия: 2.0.0" . PHP_EOL;
 
-        $output = "СПРАВКА GETRSS" . PHP_EOL;
+        $output .= "СПРАВКА GETRSS" . PHP_EOL;
         $output .= "Структура команды: getrss [action] [parameters]" . PHP_EOL;
         $output .= "Действия: " . PHP_EOL;
         $output .= "    --add : добавить rss-канал, первый параметр - http(s) ссылка, второй параметр - алиас(псевдоним) длиной не более 10 символов " . PHP_EOL .
