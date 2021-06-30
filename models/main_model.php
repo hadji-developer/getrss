@@ -96,11 +96,34 @@ class main_model
         return $image_url;                
     }//GetFirstImage
 
+    private function GetFirstImageMC($item){
+        $image_url = '';
+        if($item->children($this->rssnsp['media']) == null){
+            return $image_url;
+        }
 
-    public function SaveNews($news, $alias){
+        $media_content = $item->children($this->rssnsp['media']);
+        $n = 0;
+        foreach($media_content as $i){
+            if($n > 0){
+                break;
+            }
+            $image_url = (string)$i->attributes()->url;
+            $n++;
+        }
+
+        return $image_url;
+    }//GetFirstImageMC
+
+
+    private $rssnsp;
+
+    public function SaveNews($news, $alias, $namespaces){
         if(count($news) == 0) {
             exit();
         }
+
+        $this->rssnsp = $namespaces;
 
         $sql[0] = 'SELECT MAX(id_new) INTO @idn FROM news'; $psv[0] = [];
         $sql[1] = 'SELECT IF(@idn IS NULL, 0, @idn) INTO @idn'; $psv[1] = [];
@@ -179,6 +202,12 @@ class main_model
         $image_url = '';
         if(isset($new->enclosure)){
             $image_url = $this->GetFirstImage($new->enclosure);
+            if(mb_strlen($image_url > 1000)){
+                $image_url = '';
+            }
+        }
+        if($image_url  == ''){
+            $image_url = $this->GetFirstImageMC($new);
             if(mb_strlen($image_url > 1000)){
                 $image_url = '';
             }

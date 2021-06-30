@@ -161,8 +161,9 @@ class main_controller
             exit('Ошибка. Приложение не может обработать данную структуру rss.' . PHP_EOL);
         }
 
+        $namespaces = $parsobj->getNamespaces(true);
 
-        $this->model->SaveNews($parsobj->channel->item, $alias);
+        $this->model->SaveNews($parsobj->channel->item, $alias, $namespaces);
 
         $end = microtime(true);
         $this->view->ShowExecutionTime($end - $start);
