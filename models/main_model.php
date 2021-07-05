@@ -118,6 +118,19 @@ class main_model
 
     private $rssnsp;
 
+
+    private function CheckDuplicate($guid){
+        $sql = "SELECT count(id_new) c FROM news WHERE guid = ?";
+        $psv = [$guid];
+        $c = $this->db->query($sql, $psv)->fetchAll()[0]['c'];
+        if($c == '0'){
+            return false;
+        }
+        else {
+            return true;
+        }    
+    }
+
     public function SaveNews($news, $alias, $namespaces){
         if(count($news) == 0) {
             exit();
@@ -134,14 +147,20 @@ class main_model
             if(!$params['status']){
                 continue;
             }
-            
-            $t = $params['params'];
 
-            $sql[$n] = "INSERT INTO news(id_new, guid, title, new_link, description, new_date, author, image, url) " .
-                   "VALUES (@idn := @idn + 1, ?,  ?, ?, ?, ?, ?, ?, @idurl) ON DUPLICATE KEY UPDATE title = ?, new_link = ?, " .
-                   "description = ?, new_date = ?, author = ?, image = ? ";
-            $psv[$n] = [ $t['guid'],  $t['title'], $t['link'], $t['description'], $t['pubdate'], $t['author'], $t['image_url'],
-                         $t['title'], $t['link'], $t['description'], $t['pubdate'], $t['author'], $t['image_url'] ];
+            $t = $params['params'];
+            unset($params);
+            $is_duplicate = $this->CheckDuplicate($t['guid']);
+
+            if(!$is_duplicate){
+                $sql[$n] = "INSERT INTO news (id_new, title, new_link, description, new_date, author, image, url, guid) " .
+                           "VALUES (@idn := @idn + 1, ?, ?, ?, ?, ?, ?, @idurl, ?)";
+            }
+            else {
+                $sql[$n] = "UPDATE news SET id_new = @idn := @idn + 1, title = ?, new_link = ?, description = ?,  " . 
+                           "new_date = ?, author = ?, image = ?, url = @idurl WHERE guid = ?";  
+            }
+            $psv[$n] = [ $t['title'], $t['link'], $t['description'], $t['pubdate'], $t['author'], $t['image_url'], $t['guid'] ];
             $n++;
         }//foreach
 
