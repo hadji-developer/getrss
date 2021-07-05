@@ -157,7 +157,7 @@ class main_model
                            "VALUES (@idn := @idn + 1, ?, ?, ?, ?, ?, ?, @idurl, ?)";
             }
             else {
-                $sql[$n] = "UPDATE news SET id_new = @idn := @idn + 1, title = ?, new_link = ?, description = ?,  " . 
+                $sql[$n] = "UPDATE news SET  title = ?, new_link = ?, description = ?,  " . 
                            "new_date = ?, author = ?, image = ?, url = @idurl WHERE guid = ?";  
             }
             $psv[$n] = [ $t['title'], $t['link'], $t['description'], $t['pubdate'], $t['author'], $t['image_url'], $t['guid'] ];
