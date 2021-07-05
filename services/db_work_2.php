@@ -53,6 +53,7 @@ class db_work_2
     }
 
     public function close(){
+        $this->conn = null;
         $this->conn = 'connection_closed';
         $this->conn_status['status'] = 'close';
         $this->conn_status['message'] = '';

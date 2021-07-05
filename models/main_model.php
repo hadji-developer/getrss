@@ -98,10 +98,10 @@ class main_model
 
     private function GetFirstImageMC($item){
         $image_url = '';
-        if($item->children($this->rssnsp['media']) == null){
+        if( !isset($this->rssnsp['media']) ){
             return $image_url;
         }
-
+        
         $media_content = $item->children($this->rssnsp['media']);
         $n = 0;
         foreach($media_content as $i){
@@ -145,8 +145,8 @@ class main_model
             $n++;
         }//foreach
 
-        $this->db->transaction($sql, $psv);                    
-    
+        $this->db->transaction($sql, $psv);
+
     }//SaveNews
 
 

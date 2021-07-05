@@ -164,6 +164,7 @@ class main_controller
         $namespaces = $parsobj->getNamespaces(true);
 
         $this->model->SaveNews($parsobj->channel->item, $alias, $namespaces);
+        $this->model->db->close();
 
         $end = microtime(true);
         $this->view->ShowExecutionTime($end - $start);
