@@ -142,6 +142,7 @@ class main_model
         $sql[1] = 'SELECT IF(@idn IS NULL, 0, @idn) INTO @idn'; $psv[1] = [];
         $sql[2] = 'SELECT id_url INTO @idurl FROM urls WHERE alias = ? '; $psv[2] = [$alias];
         $n = 3;
+        $guids = [];
         foreach($news as $new){
             $params = $this->GetNewParameters($new);
             if(!$params['status']){
@@ -150,6 +151,11 @@ class main_model
 
             $t = $params['params'];
             unset($params);
+            if(in_array($t['guid'], $guids)){
+                continue;
+            }
+            $guids[] = $t['guid'];
+
             $is_duplicate = $this->CheckDuplicate($t['guid']);
 
             if(!$is_duplicate){
